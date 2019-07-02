@@ -1,23 +1,22 @@
-package br.com.caelum.gerenciador.servlet;
+package br.com.caelum.gerenciador.acao;
 
 import java.io.IOException;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(urlPatterns = "/listaEmpresas")
-public class listaEmpresasServlet extends HttpServlet {
+import br.com.caelum.gerenciador.modelo.Banco;
+import br.com.caelum.gerenciador.modelo.Empresa;
 
-	private static final long serialVersionUID = 1L;
+public class ListaEmpresas {
 
-	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	public void executa(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
+		System.out.println("listando empresas");
+		
 		Banco banco = new Banco();
 		List<Empresa> lista = banco.getEmpresas();
 
@@ -26,4 +25,5 @@ public class listaEmpresasServlet extends HttpServlet {
 		rd.forward(req, resp);
 
 	}
+
 }
