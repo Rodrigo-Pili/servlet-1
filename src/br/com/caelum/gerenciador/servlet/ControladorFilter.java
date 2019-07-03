@@ -2,34 +2,36 @@ package br.com.caelum.gerenciador.servlet;
 
 import java.io.IOException;
 
+import javax.servlet.Filter;
+import javax.servlet.FilterChain;
+import javax.servlet.FilterConfig;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
+import javax.servlet.ServletRequest;
+import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import br.com.caelum.gerenciador.acao.Acao;
 
-//@WebServlet("/entrada")
-public class UnicaEntradaServlet extends HttpServlet {
+//@WebFilter("/entrada")
+public class ControladorFilter implements Filter {
+	
+	@Override
+	public void init(FilterConfig filterConfig) throws ServletException {}
+	
+	@Override
+	public void destroy() {}
 
-	private static final long serialVersionUID = 1L;
+	public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain chain) throws IOException, ServletException {
 
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("ControladorFilter");
+
+		HttpServletRequest request = (HttpServletRequest) servletRequest;
+		HttpServletResponse response = (HttpServletResponse) servletResponse;
 
 		String paramAcao = request.getParameter("acao");
-		
-//		HttpSession sessao = request.getSession();
-//		boolean usuarioNaoEstaLogado = sessao.getAttribute("usuarioLogado") == null;
-//		boolean ehUmaAcaoProtegida = !(paramAcao.equals("Login") || paramAcao.equals("LoginForm"));
-//
-//		if (ehUmaAcaoProtegida && usuarioNaoEstaLogado) {
-//
-//			response.sendRedirect("entrada?acao=LoginForm");
-//			return;
-//
-//		}
-		
+
 		String nomeClasse = "br.com.caelum.gerenciador.acao." + paramAcao;
 
 		String nomeDoJsp;
